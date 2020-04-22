@@ -31,6 +31,8 @@ provider:
         - dynamodb:GetItem
         - dynamodb:UpdateItem
         - dynamodb:PutItem
+        - dynamodb:ListStreams
+        - dynamodb:DescribeStream
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 resources:
@@ -52,6 +54,8 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
 
 
 # you can overwrite defaults here
@@ -95,6 +99,18 @@ functions:
           path: heroes
           method: post
           cors: true
+
+
+  hero-trigger:
+    handler: handler.heroesTrigger
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - HeroesTable
+              - StreamArn
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
