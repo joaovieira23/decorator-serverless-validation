@@ -4,7 +4,10 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "invoke-local": "sls invoke local -f hero-insert --path requests-mock/hero.insert.json",
+    "invoke": "sls invoke  -f hero-insert --path requests-mock/hero.insert.json",
+    "invoke-trigger": "sls invoke local -f hero-trigger --path requests-mock/hero.trigger.json"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,7 @@
   },
   "homepage": "https://github.com/joaovieira23/decorator-serverless-validation#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "aws-sdk": "^2.660.0"
   }
 }
