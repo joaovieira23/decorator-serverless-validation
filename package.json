@@ -22,6 +22,6 @@
   "homepage": "https://github.com/joaovieira23/decorator-serverless-validation#readme",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "aws-sdk": "^2.660.0"
+    "aws-sdk": "^2.814.0"
   }
 }
